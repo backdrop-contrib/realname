@@ -14,6 +14,7 @@ function realname_settings_form($form, &$form_state) {
     '#token_types' => array('user'),
     '#min_tokens' => 1,
     '#required' => TRUE,
+    '#maxlength' => 256,
   );
 
   // Add the token tree UI.
