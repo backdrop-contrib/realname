@@ -132,6 +132,13 @@ function realname_user_operations_realname_update(array $uids) {
 }
 
 /**
+ * Implements hook_views_api().
+ */
+function realname_views_api() {
+  return array('api' => 3);
+}
+
+/**
  * @addtogroup realname
  * @{
  */
