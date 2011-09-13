@@ -200,10 +200,15 @@ function realname_update($account) {
 
   // Perform token replacement on the real name pattern.
   $realname = token_replace($pattern, array('user' => $account), array('clear' => TRUE, 'sanitize' => FALSE));
-  $realname = trim(strip_tags($realname));
+
+  // Remove any HTML tags.
+  $realname = strip_tags(decode_entities($realname));
+
+  // Remove double spaces (if a token had no value).
+  $realname = preg_replace('/ {2,}/', ' ', $realname);
 
   // The name must be trimmed to 255 characters before inserting into the database.
-  $realname = truncate_utf8($realname, 255);
+  $realname = truncate_utf8(trim($realname), 255);
 
   // Allow other modules to alter the generated realname.
   drupal_alter('realname', $realname, $account);
