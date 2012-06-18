@@ -145,6 +145,26 @@ function realname_action_info() {
 }
 
 /**
+ * Implements hook_rules_action_info().
+ */
+function realname_rules_action_info() {
+  $items['user_realname_update'] = array(
+    'label' => t('Update real name'),
+    'base' => 'realname_action_realname_update',
+    'parameter' => array(
+      'account' => array(
+        'type' => 'user',
+        'label' => t('User'),
+        'save' => FALSE,
+      ),
+    ),
+    'group' => t('User'),
+    'access callback' => 'rules_user_integration_access',
+  );
+  return $items;
+}
+
+/**
  * Action callback to update a user's realname.
  */
 function realname_action_realname_update($account, $context = array()) {
