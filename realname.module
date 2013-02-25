@@ -5,10 +5,8 @@
  * Provides token-based name displays for users.
  *
  * @todo Add a 'view realname' permission enabled by default
- * @todo Alter the username autocomplete
  * @todo Allow users to login with their real name
  * @todo Disable the username field
- * @todo Allow users to override their real name
  */
 
 /**
@@ -45,6 +43,14 @@ function realname_menu() {
   );
 
   return $items;
+}
+
+/**
+ * Implements hook_menu_alter().
+ */
+function realname_menu_alter(&$items) {
+  // Implement realname autocomplete.
+  $items['user/autocomplete']['page callback'] = 'realname_autocomplete';
 }
 
 /**
@@ -315,13 +321,19 @@ function realname_autocomplete($string = '') {
     $query = db_select('users', 'u');
     $query->leftJoin('realname', 'rn', 'u.uid = rn.uid');
     $query->fields('u', array('uid'));
-    $query->condition('rn.realname', db_like($string) . '%', 'LIKE');
+    $name_like = db_or();
+    $name_like->condition('rn.realname', db_like($string) . '%', 'LIKE');
+    $name_like->condition('u.name', db_like($string) . '%', 'LIKE');
+    $query->condition($name_like);
     $query->range(0, 10);
     $uids = $query->execute()->fetchCol();
     $accounts = user_load_multiple($uids);
 
     foreach ($accounts as $account) {
       $matches[$account->name] = format_username($account);
+      if ($matches[$account->name] != $account->name) {
+        $matches[$account->name] .= ' (' . check_plain($account->name) . ')';
+      }
     }
   }
 
