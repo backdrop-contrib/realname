@@ -127,7 +127,7 @@ function realname_user_operations() {
 function realname_user_operations_realname_update(array $uids) {
   $accounts = user_load_multiple($uids);
   foreach ($accounts as $account) {
-    realname_update($account);
+    realname_delete($account->uid);
   }
 }
 
