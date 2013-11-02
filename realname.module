@@ -310,7 +310,7 @@ function realname_delete_multiple(array $uids) {
  * Delete all real names.
  */
 function realname_delete_all() {
-  db_delete('realname')->execute();
+  db_truncate('realname')->execute();
   drupal_static_reset('realname_load_multiple');
   entity_get_controller('user')->resetCache();
 }
