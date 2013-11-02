@@ -17,10 +17,12 @@
  * Implements hook_permission().
  */
 function realname_permission() {
-  $permissions['administer realname'] = array(
-    'title' => t('Administer Real Name configuration.'),
+  return array(
+    'administer realname' => array(
+      'title' => t('Administer Real Name'),
+      'description' => t('Allows users to administer realname settings.'),
+    ),
   );
-  return $permissions;
 }
 
 /**
