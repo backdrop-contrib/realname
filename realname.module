@@ -392,6 +392,28 @@ function realname_field_widget_form_alter(&$element, &$form_state, $context) {
 }
 
 /**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function realname_form_user_admin_settings_alter(&$form, &$form_state, $form_id) {
+  $form['email_admin_created']['user_mail_register_admin_created_body']['#element_validate'][] = 'realname_username_raw_token_validate';
+  $form['email_no_approval_required']['user_mail_register_no_approval_required_body']['#element_validate'][] = 'realname_username_raw_token_validate';
+  $form['email_activated']['settings']['user_mail_status_activated_body']['#element_validate'][] = 'realname_username_raw_token_validate';
+}
+
+/**
+ * E-mail settings form validation callback.
+ */
+function realname_username_raw_token_validate(&$element, &$form_state) {
+  $value = isset($element['#value']) ? $element['#value'] : $element['#default_value'];
+
+  if (!strpos($value, '[user:name-raw]')) {
+    form_error($element, t('The %element-title does not contain realname token <code>[user:name-raw]</code>.', array('%element-title' => $element['#title'])));
+  }
+
+  return $element;
+}
+
+/**
  * Menu Access callback for the autocomplete widget.
  *
  * @param $field_name
