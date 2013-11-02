@@ -111,8 +111,8 @@ function realname_user_load(array $accounts) {
  * Implements hook_user_update().
  */
 function realname_user_update(array &$edit, stdClass $account, $category) {
-  // Since user data may have changed, delete the existing realname.
-  realname_delete($account->uid);
+  // Since user data may have changed, update the realname.
+  realname_update($account);
 }
 
 /**
@@ -142,7 +142,7 @@ function realname_user_operations() {
 function realname_user_operations_realname_update(array $uids) {
   $accounts = user_load_multiple($uids);
   foreach ($accounts as $account) {
-    realname_delete($account->uid);
+    realname_update($account);
   }
 }
 
@@ -183,7 +183,7 @@ function realname_rules_action_info() {
  * Action callback to update a user's realname.
  */
 function realname_action_realname_update($account, $context = array()) {
-  realname_delete($account->uid);
+  realname_update($account);
 }
 
 /**
