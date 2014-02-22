@@ -431,7 +431,7 @@ function realname_username_raw_token_validate(&$element, &$form_state) {
   $value = isset($element['#value']) ? $element['#value'] : $element['#default_value'];
 
   if (!strpos($value, '[user:name-raw]')) {
-    form_error($element, t('The %element-title does not contain <code>[user:name-raw]</code> token.', array('%element-title' => $element['#title'])));
+    drupal_set_message(t('The %element-title does not contain the <code>[user:name-raw]</code> token, which is necessary when using username for login when the Real Name module is enabled.', array('%element-title' => $element['#title'])), 'warning');
   }
 
   return $element;
