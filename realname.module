@@ -102,7 +102,7 @@ function realname_username_alter(&$name, $account) {
 /**
  * Implements hook_user_load().
  */
-function realname_user_load(array $accounts) {
+function realname_user_load($accounts) {
   $realnames = realname_load_multiple($accounts);
   foreach ($realnames as $uid => $realname) {
     $accounts[$uid]->realname = $realname;
@@ -112,7 +112,7 @@ function realname_user_load(array $accounts) {
 /**
  * Implements hook_user_update().
  */
-function realname_user_update(array &$edit, stdClass $account, $category) {
+function realname_user_update(&$edit, $account, $category) {
   // Since user data may have changed, update the realname.
   realname_update($account);
 }
@@ -120,7 +120,7 @@ function realname_user_update(array &$edit, stdClass $account, $category) {
 /**
  * Implements hook_user_delete().
  */
-function realname_user_delete(stdClass $account) {
+function realname_user_delete($account) {
   realname_delete($account->uid);
 }
 
@@ -138,10 +138,10 @@ function realname_user_operations() {
 /**
  * Callback function for admin mass generating user real names.
  *
- * @param $uids
+ * @param array $uids
  *   An array of user IDs.
  */
-function realname_user_operations_realname_update(array $uids) {
+function realname_user_operations_realname_update($uids) {
   $accounts = user_load_multiple($uids);
   foreach ($accounts as $account) {
     realname_update($account);
@@ -203,12 +203,12 @@ function realname_views_api() {
 /**
  * Loads a real name.
  *
- * @param $uid
+ * @param object $uid
  *   A user account object.
- * @return
+ * @return string
  *   The user's generated real name.
  */
-function realname_load(stdClass $account) {
+function realname_load($account) {
   $realnames = realname_load_multiple(array($account->uid => $account));
   return reset($realnames);
 }
@@ -216,12 +216,12 @@ function realname_load(stdClass $account) {
 /**
  * Loads multiple real names.
  *
- * @param $accounts
+ * @param array $accounts
  *   An array of user account objects keyed by user ID.
- * @return
+ * @return array
  *   An array of real names keyed by user ID.
  */
-function realname_load_multiple(array $accounts) {
+function realname_load_multiple($accounts) {
   $realnames = &drupal_static(__FUNCTION__, array());
 
   if ($new_accounts = array_diff_key($accounts, $realnames)) {
@@ -243,7 +243,7 @@ function realname_load_multiple(array $accounts) {
 /**
  * Update the realname for a user account.
  *
- * @param $account
+ * @param object $account
  *   A user account object.
  *
  * @see hook_realname_pattern_alter()
@@ -289,7 +289,7 @@ function realname_update($account) {
 /**
  * Delete a real name.
  *
- * @param $uid
+ * @param int $uid
  *   A user ID.
  */
 function realname_delete($uid) {
@@ -299,10 +299,10 @@ function realname_delete($uid) {
 /**
  * Delete multiple real names.
  *
- * @param $uids
+ * @param array $uids
  *   An array of user IDs.
  */
-function realname_delete_multiple(array $uids) {
+function realname_delete_multiple($uids) {
   db_delete('realname')->condition('uid', $uids, 'IN')->execute();
   drupal_static_reset('realname_load_multiple');
   entity_get_controller('user')->resetCache($uids);
@@ -378,13 +378,14 @@ function realname_autocomplete($field_name, $entity_type, $bundle_name, $string 
 /**
  * Menu Access callback for the autocomplete widget.
  *
- * @param $field_name
+ * @param string $field_name
  *   The name of the entity-reference field.
- * @param $entity_type
+ * @param string $entity_type
  *   The entity type.
- * @param $bundle_name
+ * @param string $bundle_name
  *   The bundle name.
- * @return
+ *
+ * @return boolean
  *   True if user can access this menu item.
  */
 function realname_autocomplete_access_callback($field_name, $entity_type, $bundle_name) {
