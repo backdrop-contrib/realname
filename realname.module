@@ -118,6 +118,16 @@ function realname_user_update(&$edit, $account, $category) {
 }
 
 /**
+ * Implements hook_profile2_update().
+ */
+function realname_profile2_update($profile) {
+  $account = user_load($profile->uid);
+  if (is_object($account)) {
+    realname_update($account);
+  }
+}
+
+/**
  * Implements hook_user_delete().
  */
 function realname_user_delete($account) {
