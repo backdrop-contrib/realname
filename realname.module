@@ -229,9 +229,10 @@ function realname_views_api() {
 /**
  * Loads a real name.
  *
- * @param object $uid
+ * @param object $account
  *   A user account object.
- * @return string
+ *
+ * @return mixed
  *   The user's generated real name.
  */
 function realname_load($account) {
@@ -271,6 +272,8 @@ function realname_load_multiple($accounts) {
  *
  * @param object $account
  *   A user account object.
+ *
+ * @return string
  *
  * @see hook_realname_pattern_alter()
  * @see hook_realname_alter()
