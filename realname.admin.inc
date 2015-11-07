@@ -7,6 +7,10 @@
  * @see realname_settings_form_submit()
  */
 function realname_settings_form($form, &$form_state) {
+  $note = '<div>';
+  $note .= t('Note that if it is changed, all current Realnames will be deleted and the list in the database will be rebuilt as needed.');
+  $note .= '</div>';
+
   $form['realname_pattern'] = array(
     '#type' => 'textfield',
     '#title' => t('Realname pattern'),
@@ -16,7 +20,7 @@ function realname_settings_form($form, &$form_state) {
     '#min_tokens' => 1,
     '#required' => TRUE,
     '#maxlength' => 256,
-    '#description' => t('This pattern will be used to construct Realnames for all users.<br /><br />Note that if it is changed, all current Realnames will be deleted and the list in the database will be rebuilt as needed.'),
+    '#description' => t('This pattern will be used to construct Realnames for all users.') . $note,
   );
 
   // Add the token tree UI.
