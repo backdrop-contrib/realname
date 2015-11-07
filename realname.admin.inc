@@ -56,7 +56,6 @@ function realname_settings_form($form, &$form_state) {
  * @see realname_settings_form_submit()
  */
 function realname_settings_form_validate($form, &$form_state) {
-
   if (strpos($form_state['values']['realname_pattern'], '[user:name]') !== FALSE) {
     form_set_error('realname_pattern', t('The <em>[user:name]</em> token cannot be used as it will cause recursion.'));
   }
