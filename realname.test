@@ -77,9 +77,24 @@ class RealnameBasicTest extends DrupalWebTestCase {
     $this->drupalPost('admin/config/people/realname', $edit, t('Save configuration'));
 
     $this->drupalGet('user/' . $this->admin_user->uid);
-    $this->assertRaw($this->admin_user->name . ' (UID: ' . $this->admin_user->uid . ')', '[testRealnameFormatUsername]: Real name ' . $this->admin_user->name . ' shown on user page.');
+    $this->assertRaw($this->admin_user->name . ' (UID: ' . $this->admin_user->uid . ')', '[testRealnameUsernameAlter]: Real name shown on user page.');
 
     $this->drupalGet('user/' . $this->admin_user->uid . '/edit');
-    $this->assertRaw($this->admin_user->name . ' (UID: ' . $this->admin_user->uid . ')', '[testRealnameFormatUsername]: Real name shown on user edit page.');
+    $this->assertRaw($this->admin_user->name . ' (UID: ' . $this->admin_user->uid . ')', '[testRealnameUsernameAlter]: Real name shown on user edit page.');
   }
+
+  function testRealnameManageDisplay() {
+    $edit['realname_pattern'] = '[user:name-raw]';
+    $this->drupalPost('admin/config/people/realname', $edit, t('Save configuration'));
+
+    $this->drupalGet('admin/config/people/accounts/fields');
+    $this->assertNoRaw('Real name', '[testRealnameManageDisplay]: Real name field not shown in manage fields list.');
+
+    $this->drupalGet('admin/config/people/accounts/display');
+    $this->assertRaw('Real name', '[testRealnameManageDisplay]: Real name field shown in manage display.');
+
+    $this->drupalGet('user/' . $this->admin_user->uid);
+    $this->assertRaw('Real name: ' . $this->admin_user->name, '[testRealnameManageDisplay]: Real name shown on user page.');
+  }
+
 }

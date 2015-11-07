@@ -77,6 +77,19 @@ function realname_menu_alter(&$items) {
 }
 
 /**
+ * Implements hook_field_extra_fields().
+ */
+function realname_field_extra_fields() {
+  $fields['user']['user']['display']['realname'] = array(
+    'label' => t('Real name'),
+    'description' => t('Real name'),
+    'weight' => -1,
+  );
+
+  return $fields;
+}
+
+/**
  * Implements hook_username_alter().
  */
 function realname_username_alter(&$name, $account) {
@@ -144,6 +157,30 @@ function realname_profile2_update($profile) {
  */
 function realname_user_delete($account) {
   realname_delete($account->uid);
+}
+
+/**
+ * Implements hook_user_view().
+ */
+function realname_user_view($account, $view_mode, $langcode) {
+  if (user_view_access($account)) {
+    $markup = l($account->realname, 'user/' . $account->uid);
+  }
+  else {
+    $markup = check_plain($account->realname);
+  }
+
+  $account->content['realname'] = array(
+    '#entity_type' => 'custom',
+    '#bundle' => 'custom',
+    '#field_type' => 'text',
+    '#theme' => 'field',
+    '#field_name' => 'realname',
+    '#title' => t('Real name'),
+    '#label_display' => 'inline',
+    '#items' => array(TRUE),
+    0 => array('#markup' => $markup),
+  );
 }
 
 /**
