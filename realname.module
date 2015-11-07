@@ -21,11 +21,7 @@ function realname_help($path, $arg) {
     // Main module help for the Realname module.
     case 'admin/config/people/realname':
     case 'admin/help#realname':
-      return '<p>' 
-        . t('A Real Name is what the site developer decides that users\' names 
-        should look like. It is constructed from various tokens that are available 
-        within the site.')
-        . '</p>';
+      return '<p>' . t("A Real Name is what the site developer decides that users' names should look like. It is constructed from various tokens that are available within the site.") . '</p>';
   }
 }
 
