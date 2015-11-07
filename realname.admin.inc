@@ -16,12 +16,8 @@ function realname_settings_form($form, &$form_state) {
     '#min_tokens' => 1,
     '#required' => TRUE,
     '#maxlength' => 256,
-    '#description' => t('This pattern will be used to construct Realnames for all users.
-      <br /><br />
-      Note that if it is changed, all current Realnames will be deleted and the 
-      list in the database will be rebuilt as needed.
-      '),
-    );
+    '#description' => t('This pattern will be used to construct Realnames for all users.<br /><br />Note that if it is changed, all current Realnames will be deleted and the list in the database will be rebuilt as needed.'),
+  );
 
   // Add the token tree UI.
   $form['token_help'] = array(
@@ -29,7 +25,7 @@ function realname_settings_form($form, &$form_state) {
     '#token_types' => array('user'),
     '#global_types' => FALSE,
     '#dialog' => TRUE,
-    );
+  );
 
   $form['#submit'][] = 'realname_settings_form_submit';
   return system_settings_form($form);
