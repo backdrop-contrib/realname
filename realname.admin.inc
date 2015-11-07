@@ -56,6 +56,7 @@ function realname_settings_form($form, &$form_state) {
  * @see realname_settings_form_submit()
  */
 function realname_settings_form_validate($form, &$form_state) {
+
   if (strpos($form_state['values']['realname_pattern'], '[user:name]') !== FALSE) {
     form_set_error('realname_pattern', t('The <em>[user:name]</em> token cannot be used as it will cause recursion.'));
   }
@@ -67,7 +68,7 @@ function realname_settings_form_validate($form, &$form_state) {
  * @see realname_settings_form_validate()
  */
 function realname_settings_form_submit($form, $form_state) {
-  if ($form['realname_pattern']['#default_value'] != $form_state['values']['realname_pattern']) {
+  if ($form['general']['realname_pattern']['#default_value'] != $form_state['values']['realname_pattern']) {
     // Only clear the realname cache if the pattern was changed.
     realname_delete_all();
   }
