@@ -456,7 +456,11 @@ function realname_form_user_admin_settings_alter(&$form, &$form_state, $form_id)
 function realname_username_raw_token_validate(&$element, &$form_state) {
   $value = isset($element['#value']) ? $element['#value'] : $element['#default_value'];
 
-  if (strpos($value, '[user:name-raw]') === FALSE) {
+  // Warns the site administrator that [user:name-raw], required to log in, is
+  // missing. You can force the deactivation of this message by setting the
+  // variable `realname_suppress_user_name_mail_validation` to TRUE (or any
+  // value that converts to TRUE, like '1').
+  if (!variable_get('realname_suppress_user_name_mail_validation', FALSE) && strpos($value, '[user:name-raw]') === FALSE) {
     drupal_set_message(t('The %element-title does not contain the <code>[user:name-raw]</code> token, which is necessary when using username for login.', array('%element-title' => $element['#title'])), 'warning');
   }
 

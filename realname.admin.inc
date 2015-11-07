@@ -27,6 +27,13 @@ function realname_settings_form($form, &$form_state) {
     '#dialog' => TRUE,
   );
 
+  $form['realname_suppress_user_name_mail_validation'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Suppress missing token warning in e-mail templates'),
+    '#description' => t('With Real name module enabled you need to replace the token <code>[user:name]</code> with <code>[user:name-raw]</code> in your <a href="@people">e-mail</a> templates. If you are running modules like <em>Email Registration</em> you may like to suppress this warning and use a different token.', array('@people' => url('admin/config/people/accounts', array('fragment' => 'edit-email-admin-created')))),
+    '#default_value' => variable_get('realname_suppress_user_name_mail_validation', FALSE),
+  );
+
   $form['#submit'][] = 'realname_settings_form_submit';
   return system_settings_form($form);
 }
