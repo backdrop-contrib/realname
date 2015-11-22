@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * Installation file for Realname module.
+ */
+
+/**
  * Implements hook_schema().
  */
 function realname_schema() {
@@ -31,7 +36,7 @@ function realname_schema() {
     ),
     'primary key' => array('uid'),
     'indexes' => array(
-      'realname' => array('realname')
+      'realname' => array('realname'),
     ),
     'foreign keys' => array(
       'users' => array(

@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * Administrative page callbacks for the realname module.
+ */
+
+/**
  * Form constructor for the Real name settings form.
  *
  * @see realname_settings_form_validate()

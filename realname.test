@@ -4,8 +4,12 @@
  * @file
  * Test file for Realname module.
  */
+
 class RealnameBasicTest extends DrupalWebTestCase {
 
+  /**
+   * {@inheritdoc}
+   */
   public static function getInfo() {
     return array(
       'name' => 'Realname basic tests',
@@ -14,7 +18,10 @@ class RealnameBasicTest extends DrupalWebTestCase {
     );
   }
 
-  function setUp() {
+  /**
+   * {@inheritdoc}
+   */
+  protected function setUp() {
     parent::setUp('realname');
 
     $permissions = array(
@@ -32,7 +39,10 @@ class RealnameBasicTest extends DrupalWebTestCase {
     $this->verbose('<pre>' . print_r($this->drupalLogin($this->admin_user, TRUE)) . '</pre>');
   }
 
-  function testRealnameConfiguration() {
+  /**
+   * Test realname configuration.
+   */
+  public function testRealnameConfiguration() {
     // Check if Configure link is available on 'Modules' page.
     // Requires 'administer modules' permission.
     $this->drupalGet('admin/modules');
@@ -72,7 +82,10 @@ class RealnameBasicTest extends DrupalWebTestCase {
     $this->assertRaw(t('The <em>[user:name]</em> token cannot be used as it will cause recursion.'), '[testRealnameConfiguration]: Invalid token found.');
   }
 
-  function testRealnameUsernameAlter() {
+  /**
+   * Test realname alter functions.
+   */
+  public function testRealnameUsernameAlter() {
     // Add a test string and see if core username has been replaced by realname.
     $edit['realname_pattern'] = '[user:name-raw] (UID: [user:uid])';
     $this->drupalPost('admin/config/people/realname', $edit, t('Save configuration'));
@@ -84,7 +97,10 @@ class RealnameBasicTest extends DrupalWebTestCase {
     $this->assertRaw($this->admin_user->name . ' (UID: ' . $this->admin_user->uid . ')', '[testRealnameUsernameAlter]: Real name shown on user edit page.');
   }
 
-  function testRealnameManageDisplay() {
+  /**
+   * Test realname display configuration.
+   */
+  public function testRealnameManageDisplay() {
     $edit['realname_pattern'] = '[user:name-raw]';
     $this->drupalPost('admin/config/people/realname', $edit, t('Save configuration'));
 

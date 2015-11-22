@@ -68,7 +68,9 @@ function realname_menu() {
 }
 
 /**
- * Implements hook_menu_alter() to replace user autocomplete with realname autocomplete.
+ * Implements hook_menu_alter().
+ *
+ * Replace user autocomplete with realname autocomplete.
  */
 function realname_menu_alter(&$items) {
   // Implement realname autocomplete.
@@ -200,7 +202,7 @@ function realname_user_operations() {
  * @param array $uids
  *   An array of user IDs.
  */
-function realname_user_operations_realname_update($uids) {
+function realname_user_operations_realname_update(array $uids) {
   $accounts = user_load_multiple($uids);
   foreach ($accounts as $account) {
     realname_update($account);
@@ -278,10 +280,11 @@ function realname_load($account) {
  *
  * @param array $accounts
  *   An array of user account objects keyed by user ID.
+ *
  * @return array
  *   An array of real names keyed by user ID.
  */
-function realname_load_multiple($accounts) {
+function realname_load_multiple(array $accounts) {
   $realnames = &drupal_static(__FUNCTION__, array());
 
   if ($new_accounts = array_diff_key($accounts, $realnames)) {
@@ -326,7 +329,8 @@ function realname_update($account) {
   // Remove double spaces (if a token had no value).
   $realname = preg_replace('/ {2,}/', ' ', $realname);
 
-  // The name must be trimmed to 255 characters before inserting into the database.
+  // The name must be trimmed to 255 characters before inserting into the
+  // database.
   $realname = truncate_utf8(trim($realname), 255);
 
   // Allow other modules to alter the generated realname.
@@ -364,7 +368,7 @@ function realname_delete($uid) {
  * @param array $uids
  *   An array of user IDs.
  */
-function realname_delete_multiple($uids) {
+function realname_delete_multiple(array $uids) {
   db_delete('realname')->condition('uid', $uids, 'IN')->execute();
   drupal_static_reset('realname_load_multiple');
   entity_get_controller('user')->resetCache($uids);
@@ -447,7 +451,7 @@ function realname_autocomplete($field_name, $entity_type, $bundle_name, $string 
  * @param string $bundle_name
  *   The bundle name.
  *
- * @return boolean
+ * @return bool
  *   True if user can access this menu item.
  */
 function realname_autocomplete_access_callback($field_name, $entity_type, $bundle_name) {
