@@ -310,6 +310,7 @@ function realname_load_multiple(array $accounts) {
  *   A user account object.
  *
  * @return string
+ *   A string with the real name.
  *
  * @see hook_realname_pattern_alter()
  * @see hook_realname_alter()
@@ -388,7 +389,9 @@ function realname_delete_all() {
  */
 
 /**
- * Menu callback; Retrieve a JSON object containing autocomplete suggestions
+ * Menu callback
+ *
+ * Retrieve a JSON object containing autocomplete suggestions
  * for existing users based on their generated real names.
  */
 function realname_autocomplete($field_name, $entity_type, $bundle_name, $string = '') {
