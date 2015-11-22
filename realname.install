@@ -90,7 +90,7 @@ function realname_requirements($phase) {
  * Implements hook_disable().
  */
 function realname_disable() {
-  drupal_set_message('You need to replace the token <code>[user:name-raw]</code> with <code>[user:name]</code> in e-mail templates.', 'warning');
+  drupal_set_message(t('You need to replace the token <code>[user:name-raw]</code> with <code>[user:name]</code> in e-mail templates.'), 'warning');
 }
 
 /**
