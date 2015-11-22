@@ -389,7 +389,7 @@ function realname_delete_all() {
  */
 
 /**
- * Menu callback
+ * Menu callback.
  *
  * Retrieve a JSON object containing autocomplete suggestions
  * for existing users based on their generated real names.
