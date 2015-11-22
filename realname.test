@@ -5,6 +5,9 @@
  * Test file for Realname module.
  */
 
+/**
+ * Test basic functionality of Realname module.
+ */
 class RealnameBasicTest extends DrupalWebTestCase {
 
   /**
