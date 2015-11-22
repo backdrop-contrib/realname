@@ -19,9 +19,10 @@ class RealnameBasicTest extends DrupalWebTestCase {
 
     $permissions = array(
       'access administration pages',
-      'administer realname',
       'administer modules',
+      'administer realname',
       'administer site configuration',
+      'administer users',
     );
 
     // User to set up google_analytics.
