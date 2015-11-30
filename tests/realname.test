@@ -82,7 +82,7 @@ class RealnameBasicTest extends DrupalWebTestCase {
     // Check token recursion protection.
     $edit['realname_pattern'] = '[user:name]';
     $this->drupalPost('admin/config/people/realname', $edit, t('Save configuration'));
-    $this->assertRaw(t('The <em>[user:name]</em> token cannot be used as it will cause recursion.'), '[testRealnameConfiguration]: Invalid token found.');
+    $this->assertRaw(t('The %token token cannot be used as it will cause recursion.', array('%token' => '[user:name]')), '[testRealnameConfiguration]: Invalid token found.');
   }
 
   /**
