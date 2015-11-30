@@ -2,5 +2,5 @@ name = Real name
 description = Provides token-based name displays for users.
 core = 7.x
 dependencies[] = token
-files[] = realname.test
+files[] = tests/realname.test
 configure = admin/config/people/realname
