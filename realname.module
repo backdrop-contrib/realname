@@ -140,8 +140,9 @@ function realname_user_load($accounts) {
  * Implements hook_user_update().
  */
 function realname_user_update(&$edit, $account, $category) {
-  // Since user data may have changed, update the realname.
-  realname_update($account);
+  // Since user data may have changed, update the realname and its cache.
+  $realnames = &drupal_static('realname_load_multiple', array());
+  $realnames[$account->uid] = realname_update($account);
 }
 
 /**
