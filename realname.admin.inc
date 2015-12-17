@@ -42,7 +42,7 @@ function realname_settings_form($form, &$form_state) {
 
   $form['advanced'] = array(
     '#type' => 'fieldset',
-    '#title' => t('Advanded settings'),
+    '#title' => t('Advanced settings'),
   );
   $form['advanced']['realname_suppress_user_name_mail_validation'] = array(
     '#type' => 'checkbox',
