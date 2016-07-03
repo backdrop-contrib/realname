@@ -106,14 +106,18 @@ class RealnameBasicTest extends DrupalWebTestCase {
   public function testRealnameManageDisplay() {
     $edit['realname_pattern'] = '[user:name-raw]';
     $this->drupalPost('admin/config/people/realname', $edit, t('Save configuration'));
+    $this->assertResponse(200);
 
     $this->drupalGet('admin/config/people/accounts/fields');
+    $this->assertResponse(200);
     $this->assertNoRaw('Real name', '[testRealnameManageDisplay]: Real name field not shown in manage fields list.');
 
     $this->drupalGet('admin/config/people/accounts/display');
+    $this->assertResponse(200);
     $this->assertRaw('Real name', '[testRealnameManageDisplay]: Real name field shown in manage display.');
 
     $this->drupalGet('user/' . $this->admin_user->uid);
+    $this->assertResponse(200);
     $this->assertText('Real name', '[testRealnameManageDisplay]: Real name field visible on user page.');
   }
 
