@@ -29,6 +29,7 @@ class RealnameBasicTest extends DrupalWebTestCase {
 
     $permissions = array(
       'access administration pages',
+      'administer fields',
       'administer modules',
       'administer realname',
       'administer site configuration',
