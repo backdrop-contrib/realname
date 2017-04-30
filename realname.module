@@ -354,6 +354,10 @@ function realname_update($account) {
   if (drupal_strlen($realname)) {
     $account->realname = $realname;
   }
+
+  // Clear the entity cache.
+  entity_get_controller('user')->resetCache(array($account->uid));
+
   return $realname;
 }
 
