@@ -350,7 +350,10 @@ function realname_update($account) {
   // Allow modules to react to the realname being updated.
   module_invoke_all('realname_update', $realname, $account);
 
-  $account->realname = $realname;
+  // Only if the real name is a non-empty string the name is altered.
+  if (drupal_strlen($realname)) {
+    $account->realname = $realname;
+  }
   return $realname;
 }
 
