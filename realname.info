@@ -1,4 +1,4 @@
-name = Real name
+name = Real Name
 description = Provides token-based name displays for users.
 core = 7.x
 configure = admin/config/people/realname
