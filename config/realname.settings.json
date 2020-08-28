@@ -1,0 +1,5 @@
+{
+    "_config_name": "realname.settings",
+    "realname_pattern": "[user:name-raw]",
+    "realname_suppress_user_name_mail_validation": false
+}

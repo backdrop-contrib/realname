@@ -1,10 +1,7 @@
 name = Real Name
-description = Provides token-based name displays for users.
-core = 7.x
-configure = admin/config/people/realname
-dependencies[] = token
+description = Provides token-based name displays for users based on fields.
+backdrop = 1.x
+type = module
 
-; Tests
-test_dependencies[] = entity
-files[] = tests/realname.test
-files[] = tests/realname_entity.test
+configure = admin/config/people/realname
+dependencies[] = entity
