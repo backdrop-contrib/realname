@@ -3,3 +3,9 @@ name = 'Realname basic tests'
 description = 'Test basic functionality of Realname module.'
 group = Realname
 file = realname.test
+
+[RealnameEntityTest]
+name = 'Realname entity tests'
+description = 'Test entity related functionality.'
+group = Realname
+file = realname_entity.test

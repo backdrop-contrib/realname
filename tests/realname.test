@@ -8,7 +8,7 @@
 /**
  * Test basic functionality of Realname module.
  */
-class RealnameBasicTest extends DrupalWebTestCase {
+class RealnameBasicTest extends BackdropWebTestCase {
 
   /**
    * {@inheritdoc}

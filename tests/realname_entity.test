@@ -8,55 +8,41 @@
 /**
  * Test entity related functionality.
  */
-class RealnameEntityTest extends DrupalWebTestCase {
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function getInfo() {
-    return array(
-      'name' => 'Realname entity tests',
-      'description' => 'Test entity related functionality.',
-      'group' => 'Realname',
-      'dependencies' => array('entity'),
-    );
-  }
+class RealnameEntityTest extends BackdropWebTestCase {
 
   /**
    * {@inheritdoc}
    */
   protected function setUp() {
-    parent::setUp('entity', 'realname');
+    parent::setUp('realname');
 
     $permissions = array(
       'change own username',
     );
 
-    $this->user = $this->drupalCreateUser($permissions);
+    $this->user = $this->backdropCreateUser($permissions);
   }
 
   /**
    * Test realname user update hook.
    */
   public function testRealnameUserUpdate() {
-    variable_set('realname_pattern', '[user:name-raw]');
+    config_set('realname.settings', 'realname_pattern', '[user:name-raw]');
     $uid = $this->user->uid;
 
-    $wrapper1 = entity_metadata_wrapper('user', $uid);
-    $realname1 = $wrapper1->label();
+    $user = user_load($uid);
+    $realname1 = $user->realname;
+    // Change user name.
+    $user->name = $this->randomName();
+    $user->save();
+    // Reload the user.
+    $user = user_load($uid);
+    $realname2 = $user->realname;
 
-    // Update user name via entity_metadata_wrapper.
-    $wrapper1->name = $this->randomName();
-    $wrapper1->save();
-
-    // Reload the user via entity_metadata_wrapper.
-    $wrapper2 = entity_metadata_wrapper('user', $uid);
-    $realname2 = $wrapper2->label();
-
-    // Check if realname changed via entity_metadata_wrapper.
+    // Check if realname changed.
     $this->assertTrue($realname1);
     $this->assertTrue($realname2);
-    $this->assertNotEqual($realname1, $realname2, '[testRealnameUserUpdate]: Real name changed via entity_metadata_wrapper.');
+    $this->assertNotEqual($realname1, $realname2, '[testRealnameUserUpdate]: Real name changed via user_save.');
   }
 
 }
