@@ -491,7 +491,7 @@ function realname_field_widget_form_alter(&$element, &$form_state, $context) {
 /**
  * Implements hook_form_FORM_ID_alter().
  */
-function realname_form_user_admin_settings_alter(&$form, &$form_state, $form_id) {
+function realname_form_user_settings_email_alter(&$form, &$form_state, $form_id) {
   $form['email_admin_created']['user_mail_register_admin_created_body']['#element_validate'][] = 'realname_username_raw_token_validate';
   $form['email_no_approval_required']['user_mail_register_no_approval_required_body']['#element_validate'][] = 'realname_username_raw_token_validate';
   $form['email_activated']['settings']['user_mail_status_activated_body']['#element_validate'][] = 'realname_username_raw_token_validate';
