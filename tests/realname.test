@@ -108,7 +108,7 @@ class RealnameBasicTest extends BackdropWebTestCase {
 
     $this->backdropGet('admin/config/people/manage/display/default');
     $this->assertResponse(200);
-    $this->assertTitle(': Default display | Backdrop CMS');
+    $this->assertTitle('User account: Default display | Backdrop CMS');
     $this->assertRaw('Real name', '[testRealnameManageDisplay]: Real name field shown in manage display.');
 
     $this->backdropGet('user/' . $this->admin_user->uid);
