@@ -253,7 +253,10 @@ function realname_action_realname_update($account, $context = array()) {
  * Implements hook_views_api().
  */
 function realname_views_api() {
-  return array('api' => 3);
+  return array(
+    'api' => 3,
+    'path' => backdrop_get_path('module', 'realname'),
+  );
 }
 
 /**
