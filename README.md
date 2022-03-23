@@ -8,7 +8,9 @@ It will also optionally set all nodes and comments to show this name.
 
 ## Installation
 
-- Install this module using the official [Backdrop CMS instructions](https://backdropcms.org/guide/modules)
+- Install this module using the official [Backdrop CMS instructions](https://docs.backdropcms.org/documentation/extend-with-modules).
+
+*Note:* in case the Entity Token module is also installed, it should be version 1.x-2.0.0-rc1+.
 
 ## Issues
 
