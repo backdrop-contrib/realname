@@ -111,7 +111,7 @@ function realname_user_format_name_alter(&$name, $account) {
   }
 
   // Real name was not yet available for the account so we need to generate it.
-  // Because tokens may call format_username() we need to prevent recursion.
+  // Because tokens may call user_format_name() we need to prevent recursion.
   if (!$in_username_alter) {
     $in_username_alter = TRUE;
 
@@ -430,7 +430,7 @@ function realname_autocomplete($field_name, $entity_type, $bundle_name, $string 
     $accounts = user_load_multiple($uids);
 
     foreach ($accounts as $account) {
-      $matches[t('!account (@uid)', array('!account' => format_username($account), '@uid' => $account->uid))] = t('!realname (@username)', array('!realname' => format_username($account), '@username' => $account->name));
+      $matches[t('!account (@uid)', array('!account' => user_format_name($account), '@uid' => $account->uid))] = t('!realname (@username)', array('!realname' => user_format_name($account), '@username' => $account->name));
     }
   }
   // User autocomplete fields.
@@ -447,7 +447,7 @@ function realname_autocomplete($field_name, $entity_type, $bundle_name, $string 
     $accounts = user_load_multiple($uids);
 
     foreach ($accounts as $account) {
-      $matches[$account->name] = t('!realname (@username)', array('!realname' => format_username($account), '@username' => $account->name));
+      $matches[$account->name] = t('!realname (@username)', array('!realname' => user_format_name($account), '@username' => $account->name));
     }
   }
 

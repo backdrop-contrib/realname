@@ -21,7 +21,7 @@ function realname_token_info() {
  * Implements hook_token_info_alter().
  */
 function realname_token_info_alter(&$info) {
-  // Since the [user:name] token uses format_username(), its meta-data should
+  // Since the [user:name] token uses user_format_name(), its meta-data should
   // be altered to reflect that it will be the real name.
   $info['tokens']['user']['name']['name'] = t('Real name');
   $info['tokens']['user']['name']['description'] = t('The real name of the user account.');
