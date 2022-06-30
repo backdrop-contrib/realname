@@ -57,28 +57,33 @@ function realname_requirements($phase) {
   $t = get_t();
 
   if ($phase == 'runtime') {
-    if (!config_get('realname.settings', 'realname_suppress_user_name_mail_validation') && strpos(config_get('system.core', 'user_mail_register_admin_created_body'), '[user:name-raw]') === FALSE) {
+    $suppress = config_get('realname.settings', 'realname_suppress_user_name_mail_validation');
+    if ($suppress) {
+      return;
+    }
+    $user_config = config('user.mail');
+    if (strpos($user_config->get('register_admin_created_body'), '[user:name-raw]') === FALSE) {
       $requirements['user_mail_register_admin_created_body'] = array(
         'title' => $t('E-mail: "Welcome (new user created by administrator)" template'),
         'value' => $t('Not configured'),
         'severity' => REQUIREMENT_WARNING,
-        'description' => $t('Replace the token <code>[user:name]</code> with <code>[user:name-raw]</code> in <a href="@people">e-mail</a> template, if using username for login.', array('@people' => url('admin/config/people/accounts', array('fragment' => 'edit-email-admin-created')))),
+        'description' => $t('Replace the token <code>[user:name]</code> with <code>[user:name-raw]</code> in <a href="@people">e-mail</a> template, if using username for login.', array('@people' => url('admin/config/people/emails', array('fragment' => 'edit-email-admin-created')))),
       );
     }
-    if (!config_get('realname.settings', 'realname_suppress_user_name_mail_validation') && strpos(config_get('system.core', 'user_mail_register_no_approval_required_body'), '[user:name-raw]') === FALSE) {
+    if (strpos($user_config->get('register_no_approval_required_body'), '[user:name-raw]') === FALSE) {
       $requirements['user_mail_register_no_approval_required_body'] = array(
         'title' => $t('E-mail: "Welcome (no approval required)" template'),
         'value' => $t('Not configured'),
         'severity' => REQUIREMENT_WARNING,
-        'description' => $t('Replace the token <code>[user:name]</code> with <code>[user:name-raw]</code> in <a href="@people">e-mail</a> template, if using username for login.', array('@people' => url('admin/config/people/accounts', array('fragment' => 'edit-email-no-approval-required')))),
+        'description' => $t('Replace the token <code>[user:name]</code> with <code>[user:name-raw]</code> in <a href="@people">e-mail</a> template, if using username for login.', array('@people' => url('admin/config/people/emails', array('fragment' => 'edit-email-no-approval-required')))),
       );
     }
-    if (!config_get('realname.settings', 'realname_suppress_user_name_mail_validation') && strpos(config_get('system.core', 'user_mail_status_activated_body'), '[user:name-raw]') === FALSE) {
+    if (strpos($user_config->get('status_activated_body'), '[user:name-raw]') === FALSE) {
       $requirements['user_mail_status_activated_body'] = array(
         'title' => $t('E-mail: "Account activation" template'),
         'value' => $t('Not configured'),
         'severity' => REQUIREMENT_WARNING,
-        'description' => $t('Replace the token <code>[user:name]</code> with <code>[user:name-raw]</code> in <a href="@people">e-mail</a> template, if using username for login.', array('@people' => url('admin/config/people/accounts', array('fragment' => 'edit-email-activated')))),
+        'description' => $t('Replace the token <code>[user:name]</code> with <code>[user:name-raw]</code> in <a href="@people">e-mail</a> template, if using username for login.', array('@people' => url('admin/config/people/emails', array('fragment' => 'edit-email-activated')))),
       );
     }
   }
