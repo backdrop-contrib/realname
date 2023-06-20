@@ -232,11 +232,11 @@ function realname_rules_action_info() {
     'parameter' => array(
       'account' => array(
         'type' => 'user',
-        'label' => t('User'),
+        'label' => t('User account'),
         'save' => FALSE,
       ),
     ),
-    'group' => t('User'),
+    'group' => t('User account'),
     'access callback' => 'rules_user_integration_access',
   );
   return $items;
