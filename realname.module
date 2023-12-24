@@ -165,24 +165,41 @@ function realname_user_delete($account) {
  * Implements hook_user_view().
  */
 function realname_user_view($account, $view_mode, $langcode) {
-  if (user_view_access($account)) {
-    $markup = l($account->realname, 'user/' . $account->uid);
+  // Get display settings (visible or not) and apply.
+  $extra_fields = field_extra_fields_get_display('user', 'user', $view_mode);
+  if ($extra_fields['realname'] && $extra_fields['realname']['visible']) {
+    if (user_view_access($account)) {
+      $markup = l($account->realname, 'user/' . $account->uid);
+    }
+    else {
+      $markup = check_plain($account->realname);
+    }
+    $account->content['realname'] = array(
+      '#type' => 'markup',
+      '#markup' => _realname_wrap_pseudo_field_markup($markup),
+      '#weight' => $extra_fields['realname']['weight'],
+    );
   }
-  else {
-    $markup = check_plain($account->realname);
-  }
+}
 
-  $account->content['realname'] = array(
-    '#entity_type' => 'custom',
-    '#bundle' => 'custom',
-    '#field_type' => 'text',
-    '#theme' => 'field',
-    '#field_name' => 'realname',
-    '#title' => t('Real name'),
-    '#label_display' => 'inline',
-    '#items' => array(TRUE),
-    0 => array('#markup' => $markup),
+/**
+ * Wraps the realname pseudo field in markup.
+ */
+function _realname_wrap_pseudo_field_markup($markup) {
+  // All classed, that theme_field() would also provide.
+  $classes = array(
+    'field',
+    'field-name-realname',
+    'field-type-text',
+    'field-label-inline',
+    'clearfix',
   );
+  $wrapper = '<div class="' . implode(' ', $classes) . '">';
+  $wrapper .= '<div class="field-label">' . t('Real name') . ':&nbsp;</div>';
+  $wrapper .= '<div class="field-items"><div class="field-item even">';
+  $wrapper .= $markup;
+  $wrapper .= '</div></div></div>';
+  return $wrapper;
 }
 
 /**
