@@ -193,6 +193,7 @@ function realname_user_operations() {
     'label' => t('Update real name'),
     'callback' => 'realname_user_operations_realname_update',
   );
+  // dummy change
   return $operations;
 }
 
