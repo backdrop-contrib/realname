@@ -9,6 +9,10 @@
  * Test basic functionality of Realname module.
  */
 class RealnameBasicTest extends BackdropWebTestCase {
+  /**
+   * @var User
+   */
+  protected $admin_user;
 
   /**
    * {@inheritdoc}
