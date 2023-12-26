@@ -9,6 +9,10 @@
  * Test entity related functionality.
  */
 class RealnameEntityTest extends BackdropWebTestCase {
+  /**
+   * @var User
+   */
+  protected $user;
 
   /**
    * {@inheritdoc}
