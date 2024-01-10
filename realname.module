@@ -177,6 +177,7 @@ function realname_user_view($account, $view_mode, $langcode) {
     '#bundle' => 'custom',
     '#field_type' => 'text',
     '#theme' => 'field',
+    '#formatter' => 'text_default',
     '#field_name' => 'realname',
     '#title' => t('Real name'),
     '#label_display' => 'inline',
