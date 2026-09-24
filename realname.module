@@ -486,7 +486,7 @@ function realname_autocomplete_access_callback($field_name, $entity_type, $bundl
  */
 function realname_field_widget_form_alter(&$element, &$form_state, $context) {
   if ($context['field']['type'] == 'entityreference') {
-    if ($context['field']['settings']['target_type'] == 'user') {
+    if ($context['field']['settings']['target_type'] == 'user' && $context['field']['settings']['handler'] == 'base') {
       $element['target_id']['#autocomplete_path'] = 'realname/autocomplete/' . $context['field']['field_name'] . '/' . $context['instance']['entity_type'] . '/' . $context['instance']['bundle'];
     }
   }
